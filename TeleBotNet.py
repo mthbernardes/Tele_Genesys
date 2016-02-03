@@ -1,6 +1,7 @@
 import telepot,time,subprocess
 admins = ['ADMIN_USER_HERE']
-group = "GROUP_HERE"
+api = "API_TOKEN_HERE"
+
 def handle_message(msg):
     user_id = msg['from']['id']
     nome = msg['from']['first_name']
@@ -13,20 +14,19 @@ def handle_message(msg):
             bot.downloadFile(msg['document']['file_id'], msg['document']['file_name'])
         elif content_type is 'text':
             command = msg['text'].lower()
-            actions(command,hostname)
+            actions(user_id,command,hostname)
     else:
         bot.sendMessage(group, 'Desculpe '+nome+' '+sobrenome+' nao tenho permissao para falar com voce!')
-def actions(command,hostname):
+def actions(user_id,command,hostname):
     print command
     if '/hostnames' in command:
-        bot.sendMessage(group, hostname)
+        bot.sendMessage(user_id, hostname)
     elif len(command.split(' ',2)) >= 3:
         command = command.split(' ',2)
         if command[0] == '/shell' and command[1] in hostname or command[1] in 'all':
             execute = command[2].split()
             system = subprocess.check_output(execute)
-            bot.sendMessage(group, hostname+'\n'+system)
-api = "API_TOKEN_HERE"
+            bot.sendMessage(user_id, hostname+'\n'+system)
 bot = telepot.Bot(api)
 bot.notifyOnMessage(handle_message)
 while 1:

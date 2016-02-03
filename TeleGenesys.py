@@ -20,7 +20,10 @@ def get_api():
 def handle_message(msg):
     user_id = msg['from']['id']
     nome = msg['from']['first_name']
-    sobrenome = msg['from']['last_name']
+    try:
+        sobrenome = msg['from']['last_name']
+    except:
+        sobrenome = ''
     username = msg['from']['username']
     hostname = subprocess.check_output(['hostname']).lower()
     content_type, chat_type, chat_id = telepot.glance2(msg)

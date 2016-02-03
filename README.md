@@ -1,4 +1,5 @@
 # Tele_Genesys
+Administrate linux servers with Telegram
 
 # Dependencies
 pip install telepot

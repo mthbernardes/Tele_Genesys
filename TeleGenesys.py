@@ -49,7 +49,7 @@ def actions(user_id,command,hostname):
             bot.sendMessage(user_id, hostname+'\n'+system)
 
 def main():
-    bot.notifyOnMessage(handle_message)
+    bot.notifyOnMessage(handle_message,run_forever=True)
     while 1:
         time.sleep(10)
 

@@ -26,7 +26,7 @@ def handle_message(msg):
         sobrenome = ''
     username = msg['from']['username']
     hostname = subprocess.check_output(['hostname']).lower()
-    content_type, chat_type, chat_id = telepot.glance2(msg)
+    content_type, chat_type, chat_id = telepot.glance(msg)
     if username in admins:
         if content_type is 'document':
             bot.downloadFile(msg['document']['file_id'], msg['document']['file_name'])
@@ -49,7 +49,7 @@ def actions(user_id,command,hostname):
             bot.sendMessage(user_id, hostname+'\n'+system)
 
 def main():
-    bot.notifyOnMessage(handle_message,run_forever=True)
+    bot.message_loop(handle_message,run_forever=True)
     while 1:
         time.sleep(10)
 
